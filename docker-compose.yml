@@ -1,0 +1,37 @@
+networks:
+  app:
+    driver: bridge
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: etc/docker/php/Dockerfile
+    container_name: app
+    volumes:
+      - .:/var/www
+    restart: unless-stopped
+    networks:
+      - app
+  nginx:
+    image: nginx:alpine
+    container_name: app-nginx
+    ports:
+      - "8090:8090"
+      - "443:443"
+    volumes:
+      - ./:/var/www
+      - ./etc/infrastructure/nginx:/etc/nginx/conf.d/
+    networks:
+      - app
+  db:
+    image: mysql:5.6.47
+    container_name: app-db
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./etc/infrastructure/mysql/my.cnf:/etc/mysql/my.cnf
+      - ./etc/database/base.sql:/docker-entrypoint-initdb.d/base.sql
+    networks:
+      - app
