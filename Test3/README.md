@@ -1,3 +1,4 @@
+```
 SELECT IF(g.grade BETWEEN 8 AND 10, s.name, 'low') AS name,
        g.grade,
        s.marks
@@ -6,9 +7,9 @@ FROM students s
 ORDER BY g.grade DESC,
          IF(g.grade BETWEEN 8 AND 10, s.name, NULL) ASC,
          IF(g.grade BETWEEN 1 AND 7, s.marks, NULL) ASC;
+```
 
-
-
+```
 CREATE TABLE grade
 (
     grade TINYINT NOT NULL,
@@ -30,3 +31,4 @@ CREATE TABLE students
         PARTITION p1 VALUES LESS THAN (80),
         PARTITION p2 VALUES LESS THAN (MAXVALUE)
         );
+```

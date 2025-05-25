@@ -1,3 +1,4 @@
+```
 <?php
 
 $item1 = new Item("Item 1", 5, 2);
@@ -18,3 +19,4 @@ $basket->load();
 
 $basket->delete();
 
+```
